@@ -1,0 +1,35 @@
+{% extends "shop/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+  {% if category %}{{ category.title }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block content %}
+    <form action="{% url "cart:cart_add" product.id %}" method="post">
+        <div class="card product-detail">
+            <div class="card__img">
+                <a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+                </a>
+            </div>
+            <div class="card__name product-detail__name">
+                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+            </div>
+            <div class="card__price product-detail__price">${{ product.price }}</div>
+            <div>
+                {{ cart_product_form }}
+            </div>
+
+            <p>
+                Описание:
+            </p>
+            <p class="card__description">
+                {{ product.description|linebreaks }}
+            </p>
+            <input class="button product-detail__button" type="submit" value="{% trans "Add to cart" %}">
+            {% csrf_token %}
+        </div>
+    </form>
+{% endblock %}

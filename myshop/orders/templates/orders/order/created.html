@@ -1,0 +1,13 @@
+{% extends "shop/base.html" %}
+
+{% block title %}
+    Thank you
+{% endblock %}
+
+{% block content %}
+    <h2 class="section-header order-created-header">Thank you</h2>
+    <p>
+        Your order has been successfully completed. Your order number is
+        <strong>{{ order.id }}</strong>.
+    </p>
+{% endblock %}
